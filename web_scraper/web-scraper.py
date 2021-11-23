@@ -15,16 +15,16 @@ def  get_citations_needed_report(url):
     result = ''
     page=requests.get(url)
     soup=BeautifulSoup(page.content, 'html.parser')
-    p_result = soup.find_all('p')
+    sup_result = soup.find_all('sup')
     
     
-    for paragraph in p_result:
-        if paragraph.findChildren('span'):
-            result+=paragraph.text         
+    for sup in sup_result:
+        if sup.findChildren('span'):
+            #print(sup)
+            result+= f'\n - { sup.previous_sibling }[citation needed] .'
+            result+=' \n '  
+              
     return result 
-
-
-
 
 print(get_citations_needed_count(url))
 print(get_citations_needed_report(url))
